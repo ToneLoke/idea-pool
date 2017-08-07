@@ -42,13 +42,13 @@ export default class EditableIdea extends Component {
             <input name="content" value={this.state.content} id="content" type="text" className="validate" onChange={this.handleChange}/>
           </div>
           <div className='col s1'>
-            <input name="impact" value={this.state.impact} id="impact" type="number" className="validate" onChange={this.handleChange}/>
+            <input name="impact" value={this.state.impact} id="impact" type="number" className="num-select center" onChange={this.handleChange}/>
           </div>
           <div className='col s1' >
-            <input name="ease" value={this.state.ease} id="ease" type="number" className="validate" onChange={this.handleChange}/>
+            <input name="ease" value={this.state.ease} id="ease" type="number" className="num-select center" onChange={this.handleChange}/>
             </div>
           <div className='col s1' >
-            <input name="confidence" value={this.state.confidence} id="confidence" type="number" className="validate" onChange={this.handleChange}/>
+            <input name="confidence" value={this.state.confidence} id="confidence" type="number" className="num-select center" onChange={this.handleChange}/>
             </div>
             <div className='col s1'>
               <span>{ average }</span>

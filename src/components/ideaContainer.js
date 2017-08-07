@@ -30,7 +30,7 @@ class IdeaContainer extends Component{
     if(type === 'submit'){
       Ideas.create(idea)
         .then(res => {
-          this.setState({ideaList: [...this.state.ideaList, res]})
+          this.setState({ideaList: [res, ...this.state.ideaList.filter((e, i) =>  i !== 0)]})
         })
     }else if( type === 'delete'){
       const ideaList = this.state.ideaList.filter((e, i) =>  i !== 0)

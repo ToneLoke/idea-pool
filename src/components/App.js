@@ -5,6 +5,7 @@ import IdeaContainer from './ideaContainer'
 import Authorize from '../adapters/authorize'
 import {Auth} from '../adapters/apiAdapter'
 import Login from './loginForm'
+import SignUp from './signUp'
 import './App.css'
 
 class App extends Component {
@@ -25,7 +26,20 @@ class App extends Component {
       .catch( err => console.log('error from server', err))
   }
   onLogin(loginParams){
-    this.getUser(loginParams)
+    if(loginParams.name){
+      Auth.signUp(loginParams)
+        .then(res => {
+            localStorage.setItem('jwt', res.jwt)
+            localStorage.setItem('refresh', res.refresh_token)
+        })
+        .then(Auth.user)
+        .then( user => {
+          this.setState({isLoggedIn: true, user: user})
+        })
+        .catch( err => console.log('error from server', err))
+    }else{
+      this.getUser(loginParams)
+    }
   }
   handleLogout(){
     localStorage.clear()
@@ -55,6 +69,7 @@ class App extends Component {
           <div className="col s10 full-length">
             <Route path='/ideas' component={Authorize(IdeaContainer)} />
             <Route exact path='/' render={()=> this.state.isLoggedIn ? <Redirect to="/ideas"/> : <Login onSendLogin={this.onLogin.bind(this)}/> } />
+            <Route path='/signUp' render={()=> this.state.isLoggedIn ? <Redirect to="/ideas"/> : <SignUp onSendLogin={this.onLogin.bind(this)}/> } />
           </div>
         </div>
       </Router>

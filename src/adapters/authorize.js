@@ -9,7 +9,7 @@ export default function (BaseComponent, inheritedProps) {
     }
     componentDidMount () {
       if(!localStorage.getItem('jwt')){
-        this.context.router.history.push('/login')
+        this.context.router.history.push('/')
       }else{
         Auth.user()
           .then( res => { console.log("passed user auth") })
@@ -24,7 +24,7 @@ export default function (BaseComponent, inheritedProps) {
     }
     componentWillUpdate () {
       if(!localStorage.getItem('jwt')){
-        this.context.router.history.push('/login')
+        this.context.router.history.push('/')
       }
     }
     render(){
