@@ -1,17 +1,15 @@
 import React, { Component } from 'react'
 import IdeasList from './ideasList'
-import { Route } from 'react-router-dom'
 import Header from './header'
 
 
 class IdeaContainer extends Component{
   state = {
     newIdea: {
-      "content": "",
+      "content": "Add content here...",
       "impact": 10,
       "ease": 10,
       "confidence": 10,
-      "average": 10,
       "edit": true
     },
     ideaList: []
@@ -31,7 +29,7 @@ class IdeaContainer extends Component{
 
   addNewIdea = () => {
     console.log("adding new idea", this.state.ideaList)
-    this.setState({ideaList: [this.state.ideaList, this.state.newIdea]})
+    this.setState({ideaList: [...this.state.ideaList, this.state.newIdea]})
   }
 
   changeToForm = (idea) =>{

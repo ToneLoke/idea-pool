@@ -7,9 +7,11 @@ const Header = (props) => {
         <p className='header-text'>My Ideas</p>
       </div>
       <div className='col s2'>
-        <a className='btn-floating btn-large waves-effect waves-light green ' onClick={props.onAdd} ><i className='material-icons'>add</i></a>
+        <p>
+          <a className='btn-floating btn-large waves-effect waves-light green ' onClick={props.onAdd} ><i className='material-icons'>add</i></a>
+        </p>
       </div>
-      <div className='col s10 offset-s1 divider grey' />
+      <div className='col s12 divider grey' />
     </div>
 
   )
