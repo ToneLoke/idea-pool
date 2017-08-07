@@ -27,8 +27,8 @@ export default class EditableIdea extends Component {
 
   handleSubmit = (e) => {
     console.log('sending',e)
-    if(e === 'submit' ) console.log('submit')
-    if(e === 'delete') console.log('delete')
+    if(e === 'submit' ) this.props.submit(e,this.state)
+    if(e === 'delete') this.props.submit(e,this.state)
     // this.props.sendIdea(this.state)
   }
 

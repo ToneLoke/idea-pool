@@ -1,7 +1,7 @@
 import React from 'react'
 
-export default ({content, impact, confidence, ease}) => {
-  const average = ((impact + ease + confidence) / 3)
+export default ({content, impact, confidence, ease, average_score}) => {
+  const average = Math.ceil(average_score)
   return (
     <div className='row'>
       <div className='col s6'>

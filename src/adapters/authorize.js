@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import { Auth } from './apiAdapter'
 
 export default function (BaseComponent, inheritedProps) {
   class Authentication extends Component {
@@ -9,7 +10,17 @@ export default function (BaseComponent, inheritedProps) {
     componentDidMount () {
       if(!localStorage.getItem('jwt')){
         this.context.router.history.push('/login')
-      }
+      }else{
+        Auth.user()
+          .then( res => { console.log("passed user auth") })
+          .catch( e => {
+            const token = { refresh_token: localStorage.getItem('refresh') }
+            Auth.refresh(token)
+              .then( res => {
+                localStorage.setItem('jwt', res.jwt)
+              })
+            } )
+    }
     }
     componentWillUpdate () {
       if(!localStorage.getItem('jwt')){

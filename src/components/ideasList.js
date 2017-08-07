@@ -8,7 +8,7 @@ class ideasList extends Component {
     return this.props.ideas.map((idea, i) => {
       // render for component or show
       if (idea.edit) {
-        return <li key={i}><Editable {...idea} /></li>
+        return <li key={i}><Editable {...idea} submit={this.props.submit} /></li>
       } else {
         return <li key={i}><Idea {...idea} /></li>
       }
@@ -19,11 +19,11 @@ class ideasList extends Component {
     return (
       <ul>
         <li>
-          <div className='row'>
-            <div className='col s1 offset-s6'>Impact</div>
-            <div className='col s1 '>Ease</div>
-            <div className='col s1 '>Confidence</div>
-            <div className='col s1 '>Avg</div>
+          <div className='row '>
+            <div className='col s1 offset-s6 col-text'>Impact</div>
+            <div className='col s1 col-text'>Ease</div>
+            <div className='col s1 col-text'>Confidence</div>
+            <div className='col s1 col-text'>Avg</div>
           </div>
         </li>
         {this.createIdeasList()}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import IdeasList from './ideasList'
 import Header from './header'
+import { Ideas } from '../adapters/apiAdapter'
 
 
 class IdeaContainer extends Component{
@@ -14,34 +15,34 @@ class IdeaContainer extends Component{
     },
     ideaList: []
   }
-  // fetchIdeas(){
-  //   fetch(``)
-  //     .then( res => res.json() )
-  //     .then( jsonRes => {
-  //       this.setState({
-  //       })
-  //     })
-  // }
-
   componentDidMount(){
-    console.log("mounting")
+    Ideas.get()
+      .then( ideas => {
+        this.setState({ideaList: ideas})
+      })
   }
 
   addNewIdea = () => {
-    console.log("adding new idea", this.state.ideaList)
-    this.setState({ideaList: [...this.state.ideaList, this.state.newIdea]})
+    this.setState({ideaList: [ this.state.newIdea ,...this.state.ideaList]})
   }
 
-  changeToForm = (idea) =>{
-    console.log("changing giph", idea)
-    this.setState({currentIdea: idea})
+  submitOrDeleteIdea = (type, idea) =>{
+    if(type === 'submit'){
+      Ideas.create(idea)
+        .then(res => {
+          this.setState({ideaList: [...this.state.ideaList, res]})
+        })
+    }else if( type === 'delete'){
+      const ideaList = this.state.ideaList.filter((e, i) =>  i !== 0)
+      this.setState({ideaList})
+    }
   }
 
   render(){
     return(
       <div className='container'>
         <Header onAdd={this.addNewIdea} />
-        <IdeasList ideas={this.state.ideaList} />
+        <IdeasList ideas={this.state.ideaList} submit={this.submitOrDeleteIdea} />
       </div>
     )
   }
