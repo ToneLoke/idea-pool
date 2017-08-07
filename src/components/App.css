@@ -1,0 +1,22 @@
+
+.logo-text {
+  font-family: .AppleSystemUIFont;
+  font-size: 16px;
+  color: #FFFFFF;
+}
+
+.full-length{
+  height:100vh;
+}
+
+.form-text{
+font-family: .SFNSDisplay;
+font-size: 40px;
+color: #2A3842;
+}
+
+.header-text{
+font-family: .SFNSDisplay;
+font-size: 28px;
+color: #2A3842;
+}
