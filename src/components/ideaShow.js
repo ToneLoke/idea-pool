@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default ({content, impact, confidence, ease, average_score}) => {
+export default ({content, impact, confidence, ease, average_score, onDelete, id, onEditForm}) => {
   const average = Math.ceil(average_score)
   return (
     <div className='row'>
@@ -18,6 +18,12 @@ export default ({content, impact, confidence, ease, average_score}) => {
       </div>
       <div className='col s1'>
         <span>{ average }</span>
+      </div>
+      <div className='col s1'>
+        <i name='submit' className='material-icons' onClick={() => onEditForm(id)}>edit</i>
+      </div>
+      <div className='col s1'>
+        <i name='submit' className='material-icons' onClick={() => onDelete(id)}>delete</i>
       </div>
     </div>
 
