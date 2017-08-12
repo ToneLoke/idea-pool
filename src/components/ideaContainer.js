@@ -33,19 +33,21 @@ class IdeaContainer extends Component{
           this.setState({ideaList: [res, ...this.state.ideaList.filter((e, i) =>  i !== 0)]})
         })
     }else if( type === 'delete'){
-      const ideaList = this.state.ideaList.filter((e, i) =>  i !== 0)
-      this.setState({ideaList})
+      
+      const editedIdeas = this.state.ideaList.map( i => i.id === idea ? {...i, edit: false} : i)
+      console.log("go back to a normal idea bro",editedIdeas);
+      this.setState({ideaList: editedIdeas})
     }
   }
 
   deleteIdeaAPI = (id) => {
     Ideas.delete(id)
-      .then(res => console.log("delete from server", res))
-      .catch( e => console.log('error on delete',e))
+      .then(res => res)
+      .catch( e => e)
   }
 
   onEditForm = (id) => {
-    const editedIdeas = this.state.ideaList.map( i => i.id === id ? {...i, edit: true} : i)
+    const editedIdeas = this.state.ideaList.map( i => i.id === id ? {...i, id: i.id, edit: true} : i)
     this.setState({ideaList: editedIdeas})
   }
 

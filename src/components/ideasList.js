@@ -8,7 +8,7 @@ class ideasList extends Component {
     return this.props.ideas.map((idea, i) => {
       // render for component or show
       if (idea.edit) {
-        return <li key={i}><Editable {...idea} submit={this.props.submit} /></li>
+        return <li key={i}><Editable idea={idea} submit={this.props.submit} /></li>
       } else {
         return <li key={i}><Idea {...idea} onEdit={this.props.onEditIdea} onDelete={this.props.onDelete} /></li>
       }

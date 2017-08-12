@@ -12,7 +12,7 @@ export default function (BaseComponent, inheritedProps) {
         this.context.router.history.push('/')
       }else{
         Auth.user()
-          .then( res => { console.log("passed user auth") })
+          .then( res => { res})
           .catch( e => {
             const token = { refresh_token: localStorage.getItem('refresh') }
             Auth.refresh(token)
