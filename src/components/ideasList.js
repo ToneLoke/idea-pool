@@ -10,7 +10,7 @@ class ideasList extends Component {
       if (idea.edit) {
         return <li key={i}><Editable {...idea} submit={this.props.submit} /></li>
       } else {
-        return <li key={i}><Idea {...idea} /></li>
+        return <li key={i}><Idea {...idea} onEdit={this.props.onEditIdea} onDelete={this.props.onDelete} /></li>
       }
     })
   }

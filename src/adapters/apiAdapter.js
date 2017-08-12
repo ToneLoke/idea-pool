@@ -1,5 +1,7 @@
+// change this to the API of your chosing
 const baseURL = 'https://small-project-api.herokuapp.com'
 
+// Auth settings go here i.e. Tokens, Cookies, Content
 const headers = () => {
   const JWT = localStorage.getItem('jwt')
   return {
@@ -8,27 +10,47 @@ const headers = () => {
   }
 }
 
+// Generates your dynamic API request given 3 ARGs Address, Name
 class API {
+// Make your function a class level request
   static request (url, method, data) {
+  // Create the promise object to properly .catch() the promise reject error when being called. Some api's do not setup their backend to correctly give errors.
     const promise = new Promise((resolve, reject) => {
+    // Checks for proper data types
       if (!(typeof url === 'string') || !(typeof url === 'string')) return reject(new Error('url and method must be type string'))
+      // Gernerate the https request type and attach headers from line 5.
       let params = {
         method: method,
         headers: headers()
       }
-      if (data) params = {...params, body: JSON.stringify(data)}
+      // makes params object or sends error for object
+      if (data) {
+        if (typeof data === 'object') {
+          params = {...params, body: JSON.stringify(data)}
+        } else {
+          return reject(new Error('params must be correct data type'))
+        }
+      }
+
+      console.log('from server', data, params)
+      // baseURL + endpoint i.e.
       return fetch(`${baseURL}/${url}`, params)
               .then(res => res.json())
               .then(s => {
+                // this is to handle the incorrect error handling from server i.e. 400 and 401 do not hit JS .catch  else skip the step
                 if (s.reason) return reject(s)
                 return resolve(s)
               })
-              .catch(e => reject(e))
+              .catch(e => {
+                console.log('err from server', e)
+                reject(new Error(e))
+              })
     })
     return promise
   }
 }
 
+// Common Auth calls can be altered for naming purposes
 export class Auth extends API {
   static login (params) {
     return super.request('access-tokens', 'POST', params)

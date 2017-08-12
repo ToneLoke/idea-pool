@@ -41,17 +41,19 @@ class IdeaContainer extends Component{
   deleteIdeaAPI = (id) => {
     Ideas.delete(id)
       .then(res => console.log("delete from server", res))
+      .catch( e => console.log('error on delete',e))
   }
 
   onEditForm = (id) => {
-    console.log("make form editable")
+    const editedIdeas = this.state.ideaList.map( i => i.id === id ? {...i, edit: true} : i)
+    this.setState({ideaList: editedIdeas})
   }
 
   render(){
     return(
       <div className='container'>
         <Header onAdd={this.addNewIdea} />
-        <IdeasList ideas={this.state.ideaList} submit={this.submitOrDeleteIdea} onDelete={this.deleteIdeaAPI} editIdea={this.onEditForm}/>
+        <IdeasList ideas={this.state.ideaList} submit={this.submitOrDeleteIdea} onDelete={this.deleteIdeaAPI} onEditIdea={this.onEditForm}/>
       </div>
     )
   }
