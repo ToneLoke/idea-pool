@@ -12,7 +12,6 @@ export default class EditableIdea extends Component {
 
   componentDidMount(){
     const idea = this.props.idea
-    console.log("form mounting", idea);
     if(this.props.idea) this.setState({idea})
   }
 
