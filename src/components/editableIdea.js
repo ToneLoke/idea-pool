@@ -30,7 +30,7 @@ export default class EditableIdea extends Component {
 
   handleSubmit = (e, id) => {
     console.log('sending',e)
-    if(e === 'submit' ) this.props.submit(e,this.state)
+    if(e === 'submit' ) this.props.submit(e,this.state.idea)
     if(e === 'delete') this.props.submit(e,id)
     // this.props.sendIdea(this.state)
   }
@@ -61,7 +61,7 @@ export default class EditableIdea extends Component {
             <i name='submit' className="material-icons" onClick={ () => this.handleSubmit('submit') }>check</i>
           </div>
           <div className='col s1'>
-            <i name='delete' className="material-icons" onClick={ () => this.handleSubmit('delete', this.state.idea.id) }>close</i>
+            <i name='delete' className="material-icons" onClick={ () => this.handleSubmit('delete', this.state.idea) }>close</i>
           </div>
         </form>
       </div>

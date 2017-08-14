@@ -31,9 +31,7 @@ class API {
           return reject(new Error('params must be correct data type'))
         }
       }
-
-      console.log('from server', data, params)
-      // baseURL + endpoint i.e.
+      console.log('before the fetch', params)
       return fetch(`${baseURL}/${url}`, params)
               .then(res => res.json())
               .then(s => {

@@ -28,22 +28,44 @@ class IdeaContainer extends Component{
 
   submitOrDeleteIdea = (type, idea) =>{
     if(type === 'submit'){
-      Ideas.create(idea)
+      console.log("submitting new idea", idea)
+      if(idea.id){
+        Ideas.update(idea.id , idea)
+          .then( res => {
+            this.setState({ideaList: [res, ...this.state.ideaList.filter((e) =>  e.id !== res.id )]})
+          })
+      }else{
+        Ideas.create(idea)
         .then(res => {
           this.setState({ideaList: [res, ...this.state.ideaList.filter((e, i) =>  i !== 0)]})
-        })
+        })      
+      }
     }else if( type === 'delete'){
-      
-      const editedIdeas = this.state.ideaList.map( i => i.id === idea ? {...i, edit: false} : i)
-      console.log("go back to a normal idea bro",editedIdeas);
-      this.setState({ideaList: editedIdeas})
+      if(idea.id){
+        const editedIdeas = this.state.ideaList.map( i => i.id === idea.id ? {...i, edit: false} : i)
+        this.setState({ideaList: editedIdeas})
+      }
+      else{
+        const editedIdeas = this.state.ideaList.filter((e, i) =>  i !== 0)
+        this.setState({ideaList: editedIdeas})
+      }
     }
   }
 
   deleteIdeaAPI = (id) => {
     Ideas.delete(id)
-      .then(res => res)
-      .catch( e => e)
+      .then(res => {
+        Ideas.get()
+          .then( ideas => {
+            this.setState({ideaList: ideas})
+          })
+      })
+      .catch( e => {
+        Ideas.get()
+          .then( ideas => {
+            this.setState({ideaList: ideas})
+          })
+      })      
   }
 
   onEditForm = (id) => {
