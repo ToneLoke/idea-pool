@@ -40,6 +40,7 @@ class API {
                 return resolve(s)
               })
               .catch(e => {
+                console.log('err from server', e)
                 reject(new Error(e))
               })
     })
